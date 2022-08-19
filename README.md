@@ -1,2 +1,2 @@
 # Guy-Wire-Modelling-And-Experiments
-Modelling and experimental analysis for the guy wire control systems
+Spreader configuration comparison, focusing on forces that increase control potential or worsen the internal load of the boom
