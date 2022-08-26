@@ -20,22 +20,19 @@ k_boom = 1012; % (Improve this estimate and generalize to all lengths!) [N/m]
 k_eff = 1/(1/k_boom+1/k_s); 
 
 % PLOT EXPERIMENT DATA WITH MODEL
-plotRiggingData("GuyWireSysID-2022-08-10",-1,60); % t0 just after the step
+plotRiggingData("kp1ki50kd0",8.5,1.5); 
 
-% PLANT MODEL AND STEP RESPONSE
+% PLANT MODEL
 G = A*R*Ee*k_eff*(eta*s+Ev)/(eta*(L*k_eff+A*Ee)*s+L*k_eff*(Ev+Ee)+A*Ev*Ee); % plant
-hold on; step(pi*G,60,'g') % step response of half a revolution
-legend("Tension [N]","Theta [-]","Plant Model")
 
-% ANALYTICAL TIME DOMAIN STEP RESPONSE
-% a1 = (A*Ee^2*L*R*k_eff^2)/((L*k_eff + A*Ee)*(A*Ee*Ev + Ee*L*k_eff + Ev*L*k_eff));
-% b1 = (A*Ee*Ev + Ee*L*k_eff + Ev*L*k_eff)/(eta*(L*k_eff + A*Ee));
-% c = (A*Ee*Ev*R*k_eff)/(A*Ee*Ev + Ee*L*k_eff + Ev*L*k_eff);
-% stepRes = @(amp,t) amp*(a1*exp(-b1*t)+c);
-% time = 0:0.1:10;
-% hold on; plot(time,stepRes(pi,time),'r')
-% timeConstant = 1/b1;
+% PID CONTROLLER
+kp = 1;
+ki = 20;
+kd = 0;
+D = kp + ki/s + kd*s;
 
-
+% PLOT MODEL STEP RESPONSE WITH EXPERIMENT
+% hold on; step(1.5*pi*feedback(G*D,1),'g') % step response of 1.5 revolutions
+% legend("Tension [N]","Theta [-]","Plant Model")
 
 
